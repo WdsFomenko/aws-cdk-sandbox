@@ -4,6 +4,8 @@ import { NETWORKING_NESTED_STACK_NAME } from '../../constants';
 import { Vpc } from '../../constructs/network';
 import { TNumber, TString } from '../../types/cloud-formation-types';
 import { ENetworkingNestedStackParams, INetworkingNestedStackParams } from '../../types/stacks';
+import { SubnetPublic } from '../../constructs/network/subnet-public';
+import { SubnetsPrivate } from '../../constructs/network/subnets-private';
 
 export class NetworkingNestedStack extends NestedStack {
   constructor(scope: Construct, params: INetworkingNestedStackParams) {
@@ -25,13 +27,17 @@ export class NetworkingNestedStack extends NestedStack {
       maxValue: 255,
     });
 
-    // 2. - Resources
-    new Vpc(this, {
+    const constructParams = {
       vpcName: vpcName.valueAsString,
       classB: classB.valueAsString,
       publicSubnets: params.publicSubnets,
       privateSubnets: params.privateSubnets,
-    });
+    };
+
+    // 2. - Resources
+    const vpcConstruct = new Vpc(this, constructParams);
+    const subnetPublicConstruct = new SubnetPublic(this, constructParams, vpcConstruct.getAttrVpcId());
+    const subnetPrivateConstruct = new SubnetsPrivate(this, constructParams, vpcConstruct.getAttrVpcId());
 
     // 3. - Outputs
   }

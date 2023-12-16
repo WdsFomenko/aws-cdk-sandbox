@@ -1,4 +1,6 @@
 export const VPC_CONSTRUCT = 'VpcConstructs';
+export const PRIVATE_SUBNET_CONSTRUCT = 'PrivateConstructs';
+export const PUBLIC_SUBNET_CONSTRUCT = 'PublicConstructs';
 export const RESOURCE_CFN_VPC = 'CfnVpc';
 export const RESOURCE_CFN_INTERNET_GATEWAY = 'CfnInternetGateway';
 export const RESOURCE_CFN_VPC_GATEWAY_ATTACHMENT = 'CfnVPCGatewayAttachment';
