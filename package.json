@@ -7,7 +7,9 @@
     "test": "jest",
     "cfn-lint": "cfn-lint --template $(pwd)/cdk.out/**/*.template.json",
     "cfn-scan": "cfn_nag_scan --input-path $(pwd)/cdk.out --template-pattern \".template.json\"",
-    "synth": "rm -rf cdk.out && cdk synth"
+    "synth": "rm -rf cdk.out && cdk synth",
+    "prod:deploy": "cdk bootstrap && npm run build && cdk deploy",
+    "prod:destroy": "cdk deploy"
   },
   "devDependencies": {
     "@types/jest": "^29.5.8",

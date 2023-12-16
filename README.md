@@ -1,12 +1,5 @@
 # Welcome to AWS CDK TypeScript project
 
-### Git Branching Naming Convention
-We are using a specification for adding human and machine readable meaning for branching naming.
-- Format: `{branch-owner}_{branch-title}`
-- Example: `v.fomenko_new-experimental-changes`
-
-More details about the [Naming Convention](https://codingsight.com/git-branching-naming-convention-best-practices/)
-
 ### Conventional Commits
 We are using a specification for adding human and machine readable meaning to commit messages.
 - Example: `feat(TASK-XXXX): Title of related Users story here`
@@ -15,15 +8,6 @@ More details about the [Conventional Commits](https://www.conventionalcommits.or
 More details about the [Commit Lint](https://github.com/conventional-changelog/commitlint)
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-### Available commands
-
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `npx cdk deploy`  deploy this stack to your default AWS account/region
-* `npx cdk diff`    compare deployed stack with current state
-* `npx cdk synth`   emits the synthesized CloudFormation template
 
 #### Quality Control Tools 
 
@@ -36,3 +20,11 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
    Access logs that aren't enabled
    Encryption that isn't enabled
    Password literals
+
+#### Building process command
+
+1. Build an image from a Dockerfile `docker build -t aws-cdk-sandbox .`
+2. Run CDK DEPLOY command in a new container `docker run -i -t -e AWS_ACCESS_KEY_ID=### -e AWS_SECRET_ACCESS_KEY=### -e AWS_REGION=eu-west-3 aws-cdk-sandbox npm run prod:deploy`
+3. Run CDK DESTROY command in a new container `docker run -i -t -e AWS_ACCESS_KEY_ID=### -e AWS_SECRET_ACCESS_KEY=### -e AWS_REGION=eu-west-3 aws-cdk-sandbox npm run prod:destroy`
+
+Note! Please do not forget to set your deployment IAM role credentials AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
