@@ -5,6 +5,6 @@ export const TestOrgStagingEnvParameters: ITestOrgStagingEnvParameters = {
   stackName: 'test-org-staging-env-root',
   vpcName: 'Staging',
   classB: '16',
-  publicSubnets: [],
-  privateSubnets: [],
+  publicSubnets: ['public-one', 'public-two', 'public-three'],
+  privateSubnets: ['private-one', 'private-two', 'private-three'],
 };

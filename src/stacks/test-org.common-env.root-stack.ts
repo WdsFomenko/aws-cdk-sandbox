@@ -13,7 +13,7 @@ export class TestOrgCommonEnvRootStack extends Stack {
     super(scope, undefined, { stackName: params.stackName });
 
     // networking
-    const networkingStack = new NetworkingNestedStack(this);
+    const networkingStack = new NetworkingNestedStack(this, params);
     networkingStack.setParameter(ENetworkingNestedStackParams.VpcName, params.vpcName);
     networkingStack.setParameter(ENetworkingNestedStackParams.ClassB, params.classB);
 

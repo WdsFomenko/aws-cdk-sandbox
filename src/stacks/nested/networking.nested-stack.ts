@@ -3,10 +3,10 @@ import { Construct } from 'constructs';
 import { NETWORKING_NESTED_STACK_NAME } from '../../constants';
 import { Vpc } from '../../constructs/network';
 import { TNumber, TString } from '../../types/cloud-formation-types';
-import { ENetworkingNestedStackParams } from '../../types/stacks';
+import { ENetworkingNestedStackParams, INetworkingNestedStackParams } from '../../types/stacks';
 
 export class NetworkingNestedStack extends NestedStack {
-  constructor(scope: Construct) {
+  constructor(scope: Construct, params: INetworkingNestedStackParams) {
     super(scope, NETWORKING_NESTED_STACK_NAME);
 
     // 1. - Parameters
@@ -17,8 +17,8 @@ export class NetworkingNestedStack extends NestedStack {
       maxLength: 64,
     });
     const classB = new CfnParameter(this, ENetworkingNestedStackParams.ClassB, {
-      description: 'Class B of VPC (10.XXX.0.0/16)',
       type: TNumber,
+      description: 'Class B of VPC (10.XXX.0.0/16)',
       default: 0,
       constraintDescription: 'Must be in the range [0-255]',
       minValue: 0,
@@ -26,11 +26,11 @@ export class NetworkingNestedStack extends NestedStack {
     });
 
     // 2. - Resources
-    new Vpc(scope, {
+    new Vpc(this, {
       vpcName: vpcName.valueAsString,
       classB: classB.valueAsString,
-      publicSubnets: [],
-      privateSubnets: [],
+      publicSubnets: params.publicSubnets,
+      privateSubnets: params.privateSubnets,
     });
 
     // 3. - Outputs

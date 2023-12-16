@@ -1,3 +1,11 @@
 export const VPC_CONSTRUCT = 'VpcConstructs';
 export const RESOURCE_CFN_VPC = 'CfnVpc';
 export const RESOURCE_CFN_INTERNET_GATEWAY = 'CfnInternetGateway';
+export const RESOURCE_CFN_VPC_GATEWAY_ATTACHMENT = 'CfnVPCGatewayAttachment';
+export const RESOURCE_CFN_SUBNET = 'CfnSubnet';
+export const RESOURCE_CFN_ROUTE_TABLE = 'CfnRouteTable';
+export const RESOURCE_CFN_ROUTE_TABLE_ASSOCIATION = 'CfnSubnetRouteTableAssociation';
+export const RESOURCE_CFN_ROUTE = 'CfnRoute';
+export const RESOURCE_CFN_NETWORK_ACL = 'CfnNetworkAcl';
+export const RESOURCE_CFN_SUBNET_NETWORK_ACL_ASSOCIATION = 'CfnSubnetNetworkAclAssociation';
+export const RESOURCE_CFN_NETWORK_ACL_ENTRY = 'CfnNetworkAclEntry';
