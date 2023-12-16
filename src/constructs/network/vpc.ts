@@ -9,8 +9,6 @@ export class Vpc extends Construct {
 
   constructor(scope: Construct, params: IVpcConstructParams) {
     super(scope, VPC_CONSTRUCT);
-
-    const azs = cdk.Fn.getAzs();
     const cidrBlock = `10.${params.classB}.0.0/16`;
 
     const vpc = new CfnVPC(this, RESOURCE_CFN_VPC, {

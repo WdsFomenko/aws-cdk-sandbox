@@ -26,6 +26,9 @@ import {
 } from 'aws-cdk-lib/aws-ec2';
 
 export class SubnetPublic extends Construct {
+  private readonly subnetIds: string[] = [];
+  private readonly routeTableIds: string[] = [];
+
   constructor(scope: Construct, params: IVpcConstructParams, attrVpcId: string) {
     super(scope, PUBLIC_SUBNET_CONSTRUCT);
 
@@ -79,6 +82,7 @@ export class SubnetPublic extends Construct {
           { key: 'Reach', value: 'Public' },
         ],
       });
+      this.subnetIds.push(subnet.attrSubnetId);
 
       const routeTable = new CfnRouteTable(this, `${RESOURCE_CFN_ROUTE_TABLE}-${pointer}`, {
         vpcId: attrVpcId,
@@ -87,6 +91,7 @@ export class SubnetPublic extends Construct {
           { key: 'Reach', value: 'Public' },
         ],
       });
+      this.routeTableIds.push(routeTable.attrRouteTableId);
 
       new CfnSubnetRouteTableAssociation(this, `${RESOURCE_CFN_ROUTE_TABLE_ASSOCIATION}-${pointer}`, {
         subnetId: subnet.attrSubnetId,
@@ -104,5 +109,13 @@ export class SubnetPublic extends Construct {
         networkAclId: publicNetworkAcl.attrId,
       });
     }
+  }
+
+  public getSubnetIds() {
+    return this.subnetIds;
+  }
+
+  public getRouteTableIds() {
+    return this.routeTableIds;
   }
 }

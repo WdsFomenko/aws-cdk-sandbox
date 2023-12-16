@@ -1,11 +1,12 @@
 import { CfnParameter, NestedStack } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { NETWORKING_NESTED_STACK_NAME } from '../../constants';
-import { Vpc } from '../../constructs/network';
+import { Vpc } from '../../constructs/network/vpc';
 import { TNumber, TString } from '../../types/cloud-formation-types';
 import { ENetworkingNestedStackParams, INetworkingNestedStackParams } from '../../types/stacks';
 import { SubnetPublic } from '../../constructs/network/subnet-public';
 import { SubnetsPrivate } from '../../constructs/network/subnets-private';
+import {Nat} from "../../constructs/network/nat";
 
 export class NetworkingNestedStack extends NestedStack {
   constructor(scope: Construct, params: INetworkingNestedStackParams) {
@@ -38,6 +39,12 @@ export class NetworkingNestedStack extends NestedStack {
     const vpcConstruct = new Vpc(this, constructParams);
     const subnetPublicConstruct = new SubnetPublic(this, constructParams, vpcConstruct.getAttrVpcId());
     const subnetPrivateConstruct = new SubnetsPrivate(this, constructParams, vpcConstruct.getAttrVpcId());
+    const natConstruct = new Nat(
+      this,
+      constructParams,
+      subnetPublicConstruct.getSubnetIds(),
+      subnetPrivateConstruct.getRouteTableIds(),
+    );
 
     // 3. - Outputs
   }

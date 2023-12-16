@@ -20,6 +20,9 @@ import {
 } from 'aws-cdk-lib/aws-ec2';
 
 export class SubnetsPrivate extends Construct {
+  private readonly subnetIds: string[] = [];
+  private readonly routeTableIds: string[] = [];
+
   constructor(scope: Construct, params: IVpcConstructParams, attrVpcId: string) {
     super(scope, PRIVATE_SUBNET_CONSTRUCT);
 
@@ -56,11 +59,13 @@ export class SubnetsPrivate extends Construct {
         vpcId: attrVpcId,
         tags: [{ key: 'Name', value: params.privateSubnets[subnetPos] }],
       });
+      this.subnetIds.push(subnet.attrSubnetId);
 
       const routeTable = new CfnRouteTable(this, `${RESOURCE_CFN_ROUTE_TABLE}-${pointer}`, {
         vpcId: attrVpcId,
         tags: [{ key: 'Name', value: params.privateSubnets[subnetPos] }],
       });
+      this.routeTableIds.push(routeTable.attrRouteTableId);
 
       new CfnSubnetRouteTableAssociation(this, `${RESOURCE_CFN_ROUTE_TABLE_ASSOCIATION}-${pointer}`, {
         subnetId: subnet.attrSubnetId,
@@ -72,5 +77,13 @@ export class SubnetsPrivate extends Construct {
         networkAclId: privateNetworkAcl.attrId,
       });
     }
+  }
+
+  public getSubnetIds() {
+    return this.subnetIds;
+  }
+
+  public getRouteTableIds() {
+    return this.routeTableIds;
   }
 }

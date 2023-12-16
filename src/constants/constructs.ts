@@ -1,4 +1,5 @@
 export const VPC_CONSTRUCT = 'VpcConstructs';
+export const NAT_CONSTRUCT = 'NatConstructs';
 export const PRIVATE_SUBNET_CONSTRUCT = 'PrivateConstructs';
 export const PUBLIC_SUBNET_CONSTRUCT = 'PublicConstructs';
 export const RESOURCE_CFN_VPC = 'CfnVpc';
@@ -6,6 +7,8 @@ export const RESOURCE_CFN_INTERNET_GATEWAY = 'CfnInternetGateway';
 export const RESOURCE_CFN_VPC_GATEWAY_ATTACHMENT = 'CfnVPCGatewayAttachment';
 export const RESOURCE_CFN_SUBNET = 'CfnSubnet';
 export const RESOURCE_CFN_ROUTE_TABLE = 'CfnRouteTable';
+export const RESOURCE_CFN_EIP = 'CfnEIP';
+export const RESOURCE_CFN_NAT_GATEWAY = 'CfnNatGateway';
 export const RESOURCE_CFN_ROUTE_TABLE_ASSOCIATION = 'CfnSubnetRouteTableAssociation';
 export const RESOURCE_CFN_ROUTE = 'CfnRoute';
 export const RESOURCE_CFN_NETWORK_ACL = 'CfnNetworkAcl';
